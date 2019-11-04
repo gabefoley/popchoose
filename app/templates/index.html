@@ -18,7 +18,7 @@
         <div class="thumb col-lg-4 col-lg-offset-2">
 
             <img src="{{artists['a1'].image}}" class="artistImage" onclick="checkChoice('a1')">
-            <div id="a1_overlay" onclick="checkChoice('a1')"></div>
+            <div id="a1_overlay" class="hidden" onclick="checkChoice('a1')"></div>
 
 
         </div>
@@ -27,7 +27,7 @@
         <div class="thumb col-lg-4 col-lg-offset-1">
 
             <img src="{{artists['a2'].image}}" class="artistImage" onclick="checkChoice('a2')">
-            <div id="a2_overlay" onclick="checkChoice('a2')"></div>
+            <div id="a2_overlay" class="hidden" onclick="checkChoice('a2')"></div>
 
         </div>
 
@@ -66,6 +66,8 @@
         }
 
         var deferred = $.Deferred();
+        $('#' + choice + '_overlay').removeClass("hidden")
+
         $('#' + choice + '_overlay').css({'background-color': color})
 
         deferred.resolve();
