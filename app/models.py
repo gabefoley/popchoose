@@ -15,6 +15,8 @@ class Artist(db.Model):
         self.image = image
 
 
+
+
 class MatchUp(db.Model):
     __tablename__ = 'matchup'
     id = db.Column(db.String(500), primary_key=True)
