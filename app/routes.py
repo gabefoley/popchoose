@@ -28,6 +28,9 @@ def update_scores():
     if request.method == 'POST':
         info = request.get_json()
         sorted_ids = sorted([info['a1'], info['a2']])
+        print ('here da ids')
+
+        print (sorted_ids)
         database.update_matchup("_".join(sorted_ids), info['correct'])
 
     return redirect(url_for('index'))

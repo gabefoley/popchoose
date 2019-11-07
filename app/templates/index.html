@@ -56,9 +56,9 @@
 <script>
 
 
-    function applyOverlay(choice) {
+    function applyOverlay(choice, correct) {
 
-        if (choice == "{{correct}}") {
+        if (correct) {
             var color = "green"
         }
         else {
@@ -72,18 +72,32 @@
 
         deferred.resolve();
 
-        return deferred.promise(choice);
+        return deferred.promise(choice, correct);
     }
 
 
     function checkChoice(choice) {
 
+        // Check if the choice was correct
+        var correct = (choice == "{{correct}}");
 
-        applyOverlay(choice).then(function () {
 
-            console.log('choice is')
+        $.ajax({
 
-            console.log(choice)
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            url: "{{  url_for ('update_scores')}}",
+            traditional: "true",
+            data: JSON.stringify({a1: "{{artists['a1'].id}}", a2: "{{artists['a2'].id}}", correct: correct}),
+            dataType: "json",
+        });
+
+
+        applyOverlay(choice, correct).then(function () {
+
+            console.log('choice is');
+
+            console.log(choice);
 
 
             if ("{{correct}}" == "a1") {
@@ -103,7 +117,7 @@
             var correctString = correct_name + ' is more popular than ' + incorrect_name
 
 
-            if (choice == "{{correct}}") {
+            if (correct) {
 
                 alert('Correct! ' + correctString);
 
@@ -114,10 +128,9 @@
 
             else {
 
-                alert('Incorrect! ' + correctString)
+                alert('Incorrect! ' + correctString);
                 location.href = Flask.url_for('index', {});
             }
-
 
 
         })
