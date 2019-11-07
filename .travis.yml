@@ -6,4 +6,7 @@ install:
 
 # command to run tests
 script:
-  - pytest
+  - pytest --cov-report term --cov=app/tests
+
+after_success:
+  - codecov
